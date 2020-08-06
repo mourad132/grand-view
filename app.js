@@ -10,6 +10,7 @@ mongoose.connect('mongodb+srv://kbibi:Mrgamer1017$@cluster0-pkbkj.mongodb.net/Cl
 
 app.get("/", function(req, res){
 	res.render("beta")
+	console.log("someone entered the website");
 })
 
 app.get("/home", function(req, res){
