@@ -1,9 +1,13 @@
 <%- include("partials/header.ejs") %>
 <div class="container">
+	<a class="btn btn-primary" href="/new">
+		Create A New Post!
+		</a>
     <% for(var i = 0; i < posts.length; i++){ %>
         <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title"><%= posts[i].title %></h5>
+			<h6 class="card-subtitle mb-2 text-muted"><%= posts[i].author %></h6>
             <p class="card-text"><%= posts[i].post %></p>
         </div>
         </div>
