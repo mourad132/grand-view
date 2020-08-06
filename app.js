@@ -40,6 +40,6 @@ app.post("/new", function(req, res){
     })
 })
 
-app.listen(procces.env.PORT || 80, function(){
+app.listen(proccess.env.PORT || 80, function(){
     console.log('server started')
 })
