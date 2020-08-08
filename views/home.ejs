@@ -1,16 +1,24 @@
 <%- include("partials/header.ejs") %>
+<% if(user._id == "5f2ed45a2625c21c561e3a21"){ %>
+	<a class="btn btn-info">Register A New User</a>
+<% } %>
 <div class="container">
-	<a class="btn btn-primary" href="/new">
-		Create A New Post!
-		</a>
+	<a class="btn btn-danger" href="/users/logout" id="logout">Logout</a>
     <% for(var i = 0; i < posts.length; i++){ %>
         <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title"><%= posts[i].title %></h5>
 			<h6 class="card-subtitle mb-2 text-muted"><%= posts[i].author %></h6>
             <p class="card-text"><%= posts[i].post %></p>
+			<% var date = posts[i].created %>
+			<p><%= date %></p>
+			<form action="/delete?_method=DELETE" method="POST">
+				<a class="btn btn-danger" href="/delete/<%= posts[i]._id %>">Delete</a>
+			</form>
+				<a class="btn btn-primary" href="/edit/<%= posts[i]._id %>">Edit</a>			
         </div>
         </div>
 <% } %> 
 </div>
+
 <%- include("partials/footer.ejs") %>
