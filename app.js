@@ -124,6 +124,6 @@ app.get("/delete/:id", function(req, res){
 	})
 })
 
-app.listen(proccess.env.PORT || 80, function(){
+app.listen(process.env.PORT || 80, function(){
     console.log('server started')
 })
