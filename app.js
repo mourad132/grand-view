@@ -11,6 +11,7 @@ app.use(bodyParser.json())
 app.set("view engine", "ejs");
 var Post = require("./models/post.js")
 var methodOverride = require("method-override")
+var User = require('./models/User.js')
 mongoose.connect('mongodb+srv://kbibi:Mrgamer1017$@cluster0-pkbkj.mongodb.net/Cluster0?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true});
 app.use(methodOverride("_method"))
 
@@ -70,26 +71,26 @@ app.get("/home", ensureAuthenticated, function(req, res){
     })
 });
 
-app.get('/new', function(req, res){
+app.get('/new', ensureAuthenticated, function(req, res){
     res.render("new")
 })
 
-app.post("/new", function(req, res){
-    Post.create({
+app.post('/new', function(req, res){
+	Post.create({
 		title: req.body.title,
-        post: req.body.post,
-		author: req.body.author,
-    }, function(err, posted){
-        if(err){
-            console.log(err)
-        } else {
-            res.redirect("/home")
-        }
-    })
+		post: req.body.post,
+		author: req.user.name,
+	}, function(err, posted){
+		if(err){
+			console.log(err)
+		} else {
+			res.redirect("/home")
+		}
+	})
 })
 
 //EDIT
-app.get("/edit/:id", function(req, res){
+app.get("/edit/:id", ensureAuthenticated, function(req, res){
 	Post.findById(req.params.id, function(err, found){
 		if(err){
 			console.log(err)
@@ -102,7 +103,7 @@ app.get("/edit/:id", function(req, res){
 app.put("/edit/:id", function(req, res){
 		Post.findOneAndUpdate(req.params.id, {
 			title: req.body.title,
-			author: req.body.author,
+			author: req.user.name,
 			post: req.body.post,
 		}, function(err, updated){
 		if(err){
@@ -114,12 +115,32 @@ app.put("/edit/:id", function(req, res){
 })
 	
 //DELETE
-app.get("/delete/:id", function(req, res){
+app.get("/delete/:id", ensureAuthenticated,function(req, res){
 	Post.findByIdAndDelete(req.params.id, function(err, destroyed){
 		if(err){
 			console.log(err)
 		} else {
 			res.redirect("/home")
+		}
+	})
+})
+
+app.get('/profiles', ensureAuthenticated, function(req, res){
+	User.find({}, function(err, profiles){
+		if(err){
+			console.log(err)
+		} else {
+			res.render("profiles", {profiles: profiles, user: req.user})
+		}
+	})
+})
+
+app.get("/profile/:id", ensureAuthenticated, function(req, res){
+	User.findById(req.params.id, function(err, found){
+		if(err){
+			console.log(err)
+		} else {
+			res.render("profile", {profile: found})
 		}
 	})
 })
