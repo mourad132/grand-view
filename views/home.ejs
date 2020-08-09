@@ -1,10 +1,36 @@
 <%- include("partials/header.ejs") %>
-<% if(user._id == "5f2ed45a2625c21c561e3a21"){ %>
-	<a class="btn btn-info">Register A New User</a>
-<% } %>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/profiles">Profiles</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/new">Create A New Post</a>
+          <a class="dropdown-item" href="/users/logout">Logout</a>
+			<% if(user._id == "5f2ed45a2625c21c561e3a21"){ %>
+			    <div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="/users/register">Register A New User</a>
+			<% } %>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
 <div class="container">
-	<a class="btn btn-danger" href="/users/logout" id="logout">Logout</a>
-    <% for(var i = 0; i < posts.length; i++){ %>
+  <% for(var i = 0; i < posts.length; i++){ %>
         <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title"><%= posts[i].title %></h5>
@@ -12,13 +38,15 @@
             <p class="card-text"><%= posts[i].post %></p>
 			<% var date = posts[i].created %>
 			<p><%= date %></p>
+			<% if(posts[i].author == user.name){ %>
 			<form action="/delete?_method=DELETE" method="POST">
-				<a class="btn btn-danger" href="/delete/<%= posts[i]._id %>">Delete</a>
+				<a class="btn btn-danger" href="/delete/<%= posts[i]._id %>" style="display: block; width: 215px">Delete</a>
 			</form>
-				<a class="btn btn-primary" href="/edit/<%= posts[i]._id %>">Edit</a>			
+				<a class="btn btn-primary" href="/edit/<%= posts[i]._id %>" style="display: block; width: 215px">Edit</a>			<% } %>
         </div>
         </div>
 <% } %> 
-</div>
+	</div>
+
 
 <%- include("partials/footer.ejs") %>
