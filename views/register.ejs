@@ -16,6 +16,16 @@
             placeholder="Enter Name"
             value="<%= typeof name != 'undefined' ? name : '' %>"
           />
+		<div class="form-group">
+          <label for="email">username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="form-control"
+            placeholder="Enter username"
+            value="<%= typeof username != 'undefined' ? username : '' %>"
+          />
         </div>
         <div class="form-group">
           <label for="email">Email</label>
@@ -49,6 +59,28 @@
             placeholder="Confirm Password"
             value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
           />
+        </div>
+		<div class="form-group">
+		<div class="form-group">
+          <label for="email">Apartment Number</label>
+          <input
+            type="number"
+            id="apartment"
+            name="apartment"
+            class="form-control"
+            placeholder="Enter Your Apartment Number"
+            value="<%= typeof apartment != 'undefined' ? apartment : '' %>"
+          />
+        </div>
+          <label for="bio">bio</label>
+          <textarea
+            type="text"
+            id="bio"username
+            name="bio"
+            class="form-control"
+            placeholder="bio"
+            value="<%= typeof bio != 'undefined' ? bio : '' %>"
+			></textarea>
         </div>
         <button type="submit" class="btn btn-primary btn-block">
           Register
