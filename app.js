@@ -134,7 +134,7 @@ app.get('/profiles', ensureAuthenticated, function(req, res){
 	})
 })
 
-app.get("/profile/:id", ensureAuthenticated, function(req, res){
+app.get("/profile/:id", function(req, res){
 	User.findById(req.params.id, function(err, found){
 		if(err){
 			console.log(err)
