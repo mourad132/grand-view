@@ -13,10 +13,22 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  bio: {
+	type: String,
+	required: true,
+},
+  apartment: {
+	  type: Number,
+	  required: true,
+  },
+	username: {
+		type: String,
+		required: true,
+	},
   date: {
     type: Date,
     default: Date.now
-  }
+  },
 });
 
 const User = mongoose.model('User', UserSchema);
