@@ -14,7 +14,6 @@ var methodOverride = require("method-override")
 var User = require('./models/User.js')
 mongoose.connect('mongodb+srv://kbibi:Mrgamer1017$@cluster0-pkbkj.mongodb.net/Cluster0?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true});
 app.use(methodOverride("_method"))
-
 const expressLayouts = require('express-ejs-layouts');
 const flash = require('connect-flash');
 const session = require('express-session');
@@ -141,6 +140,16 @@ app.get("/profile/:id", ensureAuthenticated, function(req, res){
 			console.log(err)
 		} else {
 			res.render("profile", {profile: found})
+		}
+	})
+})
+
+app.get("/account/:id", function(req, res){
+	User.findByIdAndDelete(req.params.id, function(err, deleted){
+		if(err){
+			console.log(err)
+		} else {
+			res.redirect('/profiles')
 		}
 	})
 })
