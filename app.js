@@ -78,7 +78,7 @@ app.post('/new', function(req, res){
 	Post.create({
 		title: req.body.title,
 		post: req.body.post,
-		author: req.user.name,
+		author: req.user.username,
 	}, function(err, posted){
 		if(err){
 			console.log(err)
