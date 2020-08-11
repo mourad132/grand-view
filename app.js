@@ -154,6 +154,10 @@ app.get("/account/:id", function(req, res){
 	})
 })
 
+app.get("*", (req, res) => {
+	res.render("error.ejs")
+})
+
 app.listen(process.env.PORT || 80, function(){
     console.log('server started')
 })
