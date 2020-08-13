@@ -260,7 +260,7 @@ app.get("/profilephoto", (req, res) => {
 	res.render("profilephoto")
 })
 
-app.get("/photo", ensureAuthenticated, function(req, res){
+app.get("/photo", function(req, res){
 	res.render("photo")
 })
 
