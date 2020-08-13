@@ -244,10 +244,6 @@ app.get("/storage", (req, res) => {
 	})
 })
 
-app.get("/img", function(req, res){
-	res.render("image")
-})
-
 // @route DELETE /files/:id
 // @desc  Delete file
 app.delete('/files/:id', (req, res) => {
