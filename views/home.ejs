@@ -34,7 +34,7 @@
             <p class="card-text"><%= posts[i].post %></p>
 			<% var date = posts[i].created %>
 			<p><%= date %></p>
-			<% if(posts[i].author == user.name){ %>
+			<% if(posts[i].author == user.username){ %>
 			<form action="/delete?_method=DELETE" method="POST">
 				<a class="btn btn-danger" href="/delete/<%= posts[i]._id %>" style="display: block; width: 215px">Delete</a>
 			</form>
