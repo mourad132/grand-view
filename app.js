@@ -108,7 +108,7 @@ app.get("/edit/:id", ensureAuthenticated, function(req, res){
 app.put("/edit/:id", function(req, res){
 		Post.findOneAndUpdate(req.params.id, {
 			title: req.body.title,
-			author: req.user.name,
+			author: req.user.username,
 			post: req.body.post,
 		}, function(err, updated){
 		if(err){
