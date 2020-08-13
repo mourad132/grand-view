@@ -15,12 +15,20 @@ const UserSchema = new mongoose.Schema({
   },
   bio: {
 	type: String,
-	required: true,
+	required: false,
+},
+ number: {
+	type: Number,
+	required: false,
 },
   apartment: {
 	  type: Number,
 	  required: true,
   },
+	photo: {
+		type: String,
+		required: false
+	},
 	username: {
 		type: String,
 		required: true,
