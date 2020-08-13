@@ -12,14 +12,16 @@ const { isDev } = require('../config/auth');
 router.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
 
 // Register Page
-router.get('/register', isDev, (req, res) => res.render('register'));
+router.get('/register', (req, res) => {
+	res.render("register")
+})
 
 // Register
 router.post('/register', (req, res) => {
-  const { name, email, bio, password, password2, username, apartment } = req.body;
+  const { name, email, bio, password, password2, username, apartment, photo } = req.body;
   let errors = [];
 
-  if (!name || !bio || !username || !apartment || !email || !password || !password2) {
+  if (!name || !username || !apartment || !email || !password || !password2) {
     errors.push({ msg: 'Please enter all fields' });
   }
 
@@ -58,6 +60,7 @@ router.post('/register', (req, res) => {
 		  bio,
 		  username,
 		  apartment,
+		  photo,
         });
 
         bcrypt.genSalt(10, (err, salt) => {
