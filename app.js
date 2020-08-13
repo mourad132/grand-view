@@ -145,7 +145,6 @@ app.get('/profile/:id', (req, res) => {
 		if(err){
 			console.log(err)
 		} else {
-			console.log(found.photo)
 			res.render("profile", { profile: found})
 		} }) })
 
@@ -265,7 +264,7 @@ app.get("/profilephoto", (req, res) => {
 	res.render("profilephoto")
 })
 
-app.get("/photo", function(req, res){
+app.get("/photo", ensureAuthenticated, function(req, res){
 	res.render("photo")
 })
 
