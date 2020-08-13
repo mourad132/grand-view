@@ -16,6 +16,17 @@
             placeholder="Enter Name"
             value="<%= typeof name != 'undefined' ? name : '' %>"
           />
+		<form action="/users/register" method="POST">
+        <div class="form-group">
+          <label for="photo">photo</label>
+          <input
+            type="photo"
+            id="photo"
+            name="photo"
+            class="form-control"
+            placeholder="Enter photo Name"
+            value="<%= typeof photo != 'undefined' ? photo : '' %>"
+          />
 		<div class="form-group">
           <label for="email">username</label>
           <input
@@ -75,12 +86,32 @@
           <label for="bio">bio</label>
           <textarea
             type="text"
-            id="bio"username
+            id="bio"
             name="bio"
             class="form-control"
             placeholder="bio"
             value="<%= typeof bio != 'undefined' ? bio : '' %>"
 			></textarea>
+        </div>
+		<label for="pass">Phone Number(Optional)</label>
+          <input
+            type="text"
+            id="number"
+            name="number"
+            class="form-control"
+            placeholder="Phone Number"
+            value="<%= typeof number != 'undefined' ? number : '' %>"
+			/>
+        </div>
+          <label for="pass"> Registeration password</label>
+          <input
+            type="text"
+            id="pass"
+            name="pass"
+            class="form-control"
+            placeholder="registeration password"
+            value="<%= typeof pass != 'undefined' ? pass : '' %>"
+			/>
         </div>
         <button type="submit" class="btn btn-primary btn-block">
           Register
