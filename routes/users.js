@@ -18,7 +18,7 @@ router.get('/register', (req, res) => {
 
 // Register
 router.post('/register', (req, res) => {
-  const { name, email, bio, password, password2, username, apartment, photo } = req.body;
+  const { name, email, bio, password, password2, username, apartment, photo, number } = req.body;
   let errors = [];
 
   if (!name || !username || !apartment || !email || !password || !password2) {
@@ -61,6 +61,7 @@ router.post('/register', (req, res) => {
 		  username,
 		  apartment,
 		  photo,
+		  number
         });
 
         bcrypt.genSalt(10, (err, salt) => {
