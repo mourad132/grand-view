@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema({
 	required: false,
 },
   apartment: {
-	  type: Number,
+	  type: String,
 	  required: true,
   },
 	photo: {
