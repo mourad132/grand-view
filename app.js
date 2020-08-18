@@ -62,10 +62,9 @@ app.use(function(req, res, next) {
 app.use('/users', require('./routes/users.js'));
 
 
-app.get("/", function(req, res){
-	res.render("beta")
+app.get('/', (req, res) => {
+	res.render('beta')
 })
-
 app.get("/home", ensureAuthenticated, function(req, res){
     Post.find({}, function(err, posts){
         if(err){
@@ -95,7 +94,7 @@ app.post('/new', function(req, res){
 })
 
 //EDIT
-app.get("/edit/:id", ensureAuthenticated, function(req, res){
+app.get("/edit/post/:id", ensureAuthenticated, function(req, res){
 	Post.findById(req.params.id, function(err, found){
 		if(err){
 			console.log(err)
@@ -130,6 +129,42 @@ app.get("/delete/:id", ensureAuthenticated,function(req, res){
 	})
 })
 
+//READ
+app.get("/show/:id", (req, res) => {
+	Post.findById(req.params.id, (err, found) => {
+		if(err){
+			console.log(err)
+		} else {
+			res.render({post: found})
+		}
+	})
+})
+
+app.put('/edit/profile', (req, res) => {
+	User.findOneAndUpdate({_id: req.user._id}, {
+	  name: req.body.name,
+	  email: req.user.email,
+	  password: req.body.password,
+	  bio: req.body.bio,
+	  number: req.body.number,
+	  apartment: req.body.apartment,
+	  photo: req.user.photo,
+	  username: req.user.username,
+	  date: req.user.date,
+	}, (err, updated) => {
+		if(err){
+			console.log(err)
+		} else {
+			res.redirect("/profile/" + req.user._id)
+		}
+	})
+})
+
+app.get("/edit/profile", ensureAuthenticated, (req, res) => {
+	res.render("profileEdit", {profile: req.user})
+})
+
+
 app.get('/profiles', ensureAuthenticated, function(req, res){
 	User.find({}, function(err, profiles){
 		if(err){
@@ -145,7 +180,7 @@ app.get('/profile/:id', (req, res) => {
 		if(err){
 			console.log(err)
 		} else {
-			res.render("profile", { profile: found})
+			res.render("profile", { profile: found, user: req.user})
 		} }) })
 
 //PROFILE PHOTO
@@ -184,6 +219,10 @@ const upload = multer({ storage });
 // @desc  Uploads file to DB
 app.post('/upload', upload.single('file'), (req, res) => {
 	res.render("copy.ejs", {name: req.file.filename})
+});
+
+app.post('/edit', upload.single('file'), (req, res) => {
+	res.render("editPic.ejs", {name: req.file.filename, user: req.user})
 });
 
 // @route GET /files
@@ -244,6 +283,10 @@ app.get("/storage", (req, res) => {
 	})
 })
 
+app.get("/facebook/auth", (req, res) => {
+	console.log(req)
+})
+
 // @route DELETE /files/:id
 // @desc  Delete file
 app.delete('/files/:id', (req, res) => {
@@ -262,6 +305,16 @@ app.get("/profilephoto", (req, res) => {
 
 app.get("/photo", function(req, res){
 	res.render("photo")
+})
+
+app.get('/kd', (req, res) => {
+	User.findByIdAndDelete({_id: "5f39a90b032afb0017d3505a"}, (err, deleted) => {
+		if(err){
+			console.log(err)
+		} else {
+			console.log("deleted")
+		}
+	})
 })
 
 app.get("*", (req, res) => {
