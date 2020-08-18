@@ -1,12 +1,110 @@
-<%- include("partials/header.ejs") %>
-<div class="container">
-	<div class="jumbotron">
-  <h1 class="display-4">Welcome To Grand View!</h1>
-  <p class="lead">This is version 1.0.4 of the website</p>
-  <hr class="my-4">
-  <p>Developed By <a href="/profile/5f357b8190e45f01b416786b">Mourad Sherif</a></p>	
-  <a class="btn btn-primary btn-lg" href="/users/login" role="button">Log In</a>
-  <a class="btn btn-secondary btn-lg" href="/profilephoto" role="button">Register</a>
-</div>
-</div>
-<%- include("partials/footer.ejs") %>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Grand View</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./public/stylesheets/landing.css">
+		<style>
+		body {
+  background-color: #000;
+}
+
+#landing-header {
+  z-index: 1;
+  position: relative;
+  text-align: center;
+  padding-top: 40vh;
+}
+
+#landing-header h1 {
+  color: #fff;
+}
+
+.slideshow { 
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.slideshow li { 
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  z-index: 0;
+  animation: imageAnimation 50s linear infinite; 
+}
+
+.slideshow li:nth-child(1) { 
+  background-image: url(https://proxy-us-west2.goorm.io//service/5f1dfa78e3b3879699f8f42f_dcqxHLND8syaqFlIS1L.run-us-west2.goorm.io/9080//file/load/1.jpg?path=d29ya3NwYWNlJTJGcHJvamVjdHMlMkZHViUyRnZpZXdzJTJGaW1ncyUyRjEuanBn&docker_id=dcqxHLND8syaqFlIS1L&secure_session_id=MFYnHYnHBJW7BvPZ7_gxxWSZY89Vazym) 
+}
+.slideshow li:nth-child(2) { 
+  background-image: url(http://i.imgur.com/SBEmFpv.jpg);
+  animation-delay: 10s; 
+}
+.slideshow li:nth-child(3) { 
+  background-image: url(http://i.imgur.com/emvhOnb.jpg);
+  animation-delay: 20s; 
+}
+.slideshow li:nth-child(4) { 
+  background-image: url(http://i.imgur.com/2LSMCmJ.jpg);
+  animation-delay: 30s; 
+}
+.slideshow li:nth-child(5) { 
+  background-image: url(http://i.imgur.com/TVGe0Ef.jpg);
+  animation-delay: 40s; 
+}
+
+@keyframes imageAnimation { 
+  0% { 
+    opacity: 0; 
+    animation-timing-function: ease-in;
+  }
+  10% {
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  20% {
+    opacity: 1
+  }
+  30% {
+    opacity: 0
+  }
+}
+
+/* Older browser support - class added by modernizr */
+.no-cssanimations .slideshow li {
+	opacity: 1;
+}
+		</style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
+    </head>
+    <body>
+    
+    <div id="landing-header">
+ 		<h1>Welcome to Grand View!</h1>
+		<h5>Developed By: <a href="/profile/5f3a5ce466976c069e857f1f">Mourad Sherif</a></h5>
+		<a href="/users/login" class="btn btn-lg btn-primary">Log In</a>
+		<a href="/users/register" class="btn btn-lg btn-secondary">Register</a>
+    </div>
+    
+    <ul class="slideshow">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+
+<% include("./partials/footer") %>
