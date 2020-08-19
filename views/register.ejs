@@ -1,4 +1,4 @@
-<div class="row mt-5">
+ <div class="row mt-5">
   <div class="col-md-6 m-auto">
     <div class="card card-body">
       <h1 class="text-center mb-3">
@@ -16,29 +16,18 @@
             placeholder="Enter Name"
             value="<%= typeof name != 'undefined' ? name : '' %>"
           />
-		<form action="/users/register" method="POST">
         <div class="form-group">
-          <label for="photo">photo</label>
+          <label for="username">User Name</label>
           <input
-            type="photo"
-            id="photo"
-            name="photo"
-            class="form-control"
-            placeholder="Enter photo Name"
-            value="<%= typeof photo != 'undefined' ? photo : '' %>"
-          />
-		<div class="form-group">
-          <label for="email">username</label>
-          <input
-            type="text"
+            type="username"
             id="username"
             name="username"
             class="form-control"
             placeholder="Enter username"
             value="<%= typeof username != 'undefined' ? username : '' %>"
           />
-        </div>
-        <div class="form-group">
+		<form action="/users/register" method="POST">
+		<div class="form-group">
           <label for="email">Email</label>
           <input
             type="email"
@@ -85,7 +74,7 @@
         </div>
           <label for="bio">bio</label>
           <textarea
-            type="text" 
+            type="text"
             id="bio"
             name="bio"
             class="form-control"
@@ -97,8 +86,8 @@
           <input
             type="number"
             id="number"
-            name="number"
-            class="form-control"
+            name="number" 
+        	class="form-control"
             placeholder="Phone Number"
             value="<%= typeof number != 'undefined' ? number : '' %>"
 			/>
@@ -111,7 +100,7 @@
             class="form-control"
             placeholder="registeration password"
             value="<%= typeof pass != 'undefined' ? pass : '' %>"
-		/>
+			/>
         </div>
         <button type="submit" class="btn btn-primary btn-block">
           Register
@@ -121,3 +110,4 @@
     </div>
   </div>
 </div>
+ 
