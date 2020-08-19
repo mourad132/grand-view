@@ -13,6 +13,7 @@ var localStrategy = require("passport-local").Strategy;
 var passportLocalMongoose = require("passport-local-mongoose");
 app.use(bodyParser.urlencoded({ extended: true}))
 app.use(bodyParser.json())
+mongoose.set('useFindAndModify', false);
 app.set("view engine", "ejs");
 var Post = require("./models/post.js")
 var methodOverride = require("method-override")
@@ -93,6 +94,25 @@ app.post('/new', function(req, res){
 	})
 })
 
+
+app.get("/pass", (req, res) => {
+	bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(req.body.password, salt, (err, hash) => {
+            if (err) throw err;
+            req.body.password = hash
+				.then(user => {
+                req.flash(
+                  'success_msg',
+                  'You are now registered and can log in'
+                );
+					res.send(hash)
+			})
+              .catch(err => console.log(err));
+          });
+        });
+})
+
+
 //EDIT
 app.get("/edit/post/:id", ensureAuthenticated, function(req, res){
 	Post.findById(req.params.id, function(err, found){
@@ -128,35 +148,20 @@ app.get("/delete/:id", ensureAuthenticated,function(req, res){
 		}
 	})
 })
-
-//READ
-app.get("/show/:id", (req, res) => {
-	Post.findById(req.params.id, (err, found) => {
-		if(err){
-			console.log(err)
-		} else {
-			res.render({post: found})
-		}
-	})
-})
-
-app.put('/edit/profile', (req, res) => {
-	User.findOneAndUpdate({_id: req.user._id}, {
-	  name: req.body.name,
-	  email: req.user.email,
-	  password: req.body.password,
-	  bio: req.body.bio,
-	  number: req.body.number,
-	  apartment: req.body.apartment,
-	  photo: req.user.photo,
-	  username: req.user.username,
-	  date: req.user.date,
-	}, (err, updated) => {
-		if(err){
-			console.log(err)
-		} else {
-			res.redirect("/profile/" + req.user._id)
-		}
+	 
+app.post('/edit/profile', (req, res) => {
+	User.findById(req.user._id, (err, found) => {
+	  name = req.body.name
+	  email = req.user.email
+	  password = req.body.password
+	  bio = req.body.bio
+	  number = req.body.number
+	  apartment = req.body.apartment
+	  username = req.user.username
+	  date = req.user.date
+	  photo = req.user.photo
+	  found.save()
+		res.redirect("/profile/" + found._id)
 	})
 })
 
@@ -217,14 +222,17 @@ const upload = multer({ storage });
 
 // @route POST /upload
 // @desc  Uploads file to DB
-app.post('/upload', upload.single('file'), (req, res) => {
-	res.render("copy.ejs", {name: req.file.filename})
+app.post('/upload', ensureAuthenticated, upload.single('file'), (req, res) => {
+	User.findById(req.user, (err, found) => {
+		if(err){
+			console.log(err)
+		} else {
+			found.photo = req.file.filename
+			found.save()
+			res.redirect('/profile/' + req.user._id)
+		}
+	})
 });
-
-app.post('/edit', upload.single('file'), (req, res) => {
-	res.render("editPic.ejs", {name: req.file.filename, user: req.user})
-});
-
 // @route GET /files
 // @desc  Display all files in JSON
 app.get('/files', (req, res) => {
@@ -305,16 +313,6 @@ app.get("/profilephoto", (req, res) => {
 
 app.get("/photo", function(req, res){
 	res.render("photo")
-})
-
-app.get('/kd', (req, res) => {
-	User.findByIdAndDelete({_id: "5f39a90b032afb0017d3505a"}, (err, deleted) => {
-		if(err){
-			console.log(err)
-		} else {
-			console.log("deleted")
-		}
-	})
 })
 
 app.get("*", (req, res) => {
