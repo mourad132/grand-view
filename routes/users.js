@@ -18,10 +18,10 @@ router.get('/register', (req, res) => {
 
 // Register
 router.post('/register', (req, res) => {
-  const { name, email, bio, password, password2, username, apartment, photo, number } = req.body;
+  const { name, email, bio, password, password2, username, apartment, photo, number, registeration } = req.body;
   let errors = [];
 
-  if (!name || !username || !apartment || !email || !password || !password2) {
+  if (!name || !username || !apartment || !email || !password || !password2, !registeration) {
     errors.push({ msg: 'Please enter all fields' });
   }
 
