@@ -13,7 +13,7 @@
   z-index: 1;
   position: relative;
   text-align: center;
-  padding-top: 40vh;
+  padding-top: 25vh;
 }
 
 #landing-header h1 {
@@ -50,24 +50,29 @@
 }
 .slideshow li:nth-child(2) { 
   background-image: url(https://grand-view.herokuapp.com/image/0765972365471b6551b7b6dba50ecd53.jpg);
-  animation-delay: 5s; 
+  animation-delay: 10s; 
 }
 .slideshow li:nth-child(3) { 
   background-image: url(https://grand-view.herokuapp.com/image/5e0b02e9ba7529c9196fb8195de89712.jpg);
-  animation-delay: 10s; 
+  animation-delay: 20s; 
 }
 .slideshow li:nth-child(4) { 
   background-image: url(https://grand-view.herokuapp.com/image/0e0121211bc72292eb198f105fba01e4.jpg);
-  animation-delay: 15s; 
+  animation-delay: 30s; 
 }
 .slideshow li:nth-child(5) { 
   background-image: url(https://grand-view.herokuapp.com/image/a19d101f2f70741252390b4d0842ae0c.jpg);
-  animation-delay: 20s; 
+  animation-delay: 30s; 
 }
 .slideshow li:nth-child(6) { 
-  background-image: url(http://grand-view.herokuapp.com/image/c4be32e0c4e527eb653055f997ceaba8.jpg);
-  animation-delay: 25s; 
+  background-image: url(https://grand-view.herokuapp.com/image/e8594f2a92a5dd692c460372e7063f61.jpg);
+  animation-delay: 40s; 
 }
+
+	a img {
+		width: 300px;
+		margin-bottom: 10px;
+		}
 
 @keyframes imageAnimation { 
   0% { 
@@ -89,17 +94,19 @@
 /* Older browser support - class added by modernizr */
 .no-cssanimations .slideshow li {
 	opacity: 1;
-}
+}		
 		</style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
     </head>
     <body>
-    
     <div id="landing-header">
  		<h1>Welcome to Grand View!</h1>
 		<h5>Developed By: <a href="/profile/5f3c88eed5405b00172f9497">Mourad Sherif</a></h5>
-		<a href="/users/login" class="btn btn-lg btn-primary">Log In</a>
-		<a href="/users/register" class="btn btn-lg btn-secondary">Register</a>
+		<a href="https://www.google.com/maps/@30.9737307,29.6599599,15.5z"><img src="http://grand-view.herokuapp.com/image/f3c64e6e2b0094572a5e8857778e3ac7.PNG"></a>
+		<div style="display: block">
+			<a href="/users/login" class="btn btn-lg btn-primary">Log In</a>
+			<a href="/profilephoto" class="btn btn-lg btn-secondary">Register</a>
+		</div>
     </div>
     
     <ul class="slideshow">
