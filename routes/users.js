@@ -18,30 +18,29 @@ router.get('/register', (req, res) => {
 
 // Register
 router.post('/register', (req, res) => {
-  const { name, email, bio, password, password2, username, apartment, photo, number, registeration } = req.body;
+	  const { name, email, bio, password, password2, username, apartment, number, pass } = req.body;
   let errors = [];
 
-  if (!name || !username || !apartment || !email || !password || !password2, !registeration) {
+  if (!name || !username || !apartment || !email || !password || !password2 || !pass) {
     errors.push({ msg: 'Please enter all fields' });
-  }
+  }	
 
   if (password != password2) {
     errors.push({ msg: 'Passwords do not match' });
   }
 
+  if(pass != "grandview4532"){
+	  errors.push("Registeration Password Is Not Valid, Please Contact The Developer To Get It")
+  }
   if (password.length < 6) {
     errors.push({ msg: 'Password must be at least 6 characters' });
   }
-if(registeration != "grandview4532"){
-	errors.push({ msg: 'Registeration Password Is Not Valid, Please Contact The Developer'})
-}
+
   if (errors.length > 0) {
     res.render('register', {
       errors,
       name,
-      username,
       email,
-      apartment, 
       password,
       password2
     });
@@ -64,7 +63,6 @@ if(registeration != "grandview4532"){
 		  bio,
 		  username,
 		  apartment,
-		  photo,
 		  number
         });
 
@@ -86,13 +84,13 @@ if(registeration != "grandview4532"){
         });
       }
     });
-  }
-});
+  }  
+  });
 
 // Login
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
-    successRedirect: '/home',
+    successRedirect: '/new/suggestion',
     failureRedirect: '/users/login',
     failureFlash: true
   })(req, res, next);
@@ -100,9 +98,9 @@ router.post('/login', (req, res, next) => {
 
 // Logout
 router.get('/logout', (req, res) => {
-  req.logout();
-  req.flash('success_msg', 'You are logged out');
-  res.redirect('/users/login');
+  			req.logout();
+  			req.flash('success_msg', 'You are logged out');
+  			res.redirect('/users/login');
 });
 
 module.exports = router;
