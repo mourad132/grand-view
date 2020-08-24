@@ -1,4 +1,6 @@
+//Node Modules
 var express = require("express");
+const sanitizer  = require('sanitizer');
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 const path = require('path');
@@ -6,28 +8,36 @@ const crypto = require('crypto');
 const multer = require('multer');
 const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
-var app = express();
-var { ensureAuthenticated } = require("./config/auth.js")
 var passport = require("passport");
-var localStrategy = require("passport-local").Strategy;
-var passportLocalMongoose = require("passport-local-mongoose");
-app.use(bodyParser.urlencoded({ extended: true}))
-app.use(bodyParser.json())
-mongoose.set('useFindAndModify', false);
-app.set("view engine", "ejs");
-var Post = require("./models/post.js")
-var methodOverride = require("method-override")
-var User = require('./models/User.js')
-mongoose.connect('mongodb+srv://kbibi:Mrgamer1017$@cluster0-pkbkj.mongodb.net/Cluster0?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true})
-var conn = mongoose.createConnection('mongodb+srv://kbibi:Mrgamer1017$@cluster0-pkbkj.mongodb.net/Cluster0?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true});
-app.use(methodOverride("_method"))
+var methodOverride = require("method-override");
 const expressLayouts = require('express-ejs-layouts');
 const flash = require('connect-flash');
 const session = require('express-session');
- 
+var passportLocalMongoose = require("passport-local-mongoose");
+var localStrategy = require("passport-local").Strategy;
+var app = express();
+
+//Local Models
+var { ensureAuthenticated } = require("./config/auth.js");
+var Post = require("./models/post.js")
+var User = require('./models/User.js')
+const Comment = require("./models/comments.js");
+const Suggestion = require("./models/suggestion.js");
+
+//Mongoose Config
+mongoose.set('useFindAndModify', false);
+mongoose.connect('mongodb+srv://kbibi:Mrgamer1017$@cluster0-pkbkj.mongodb.net/Cluster0?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true})
+var conn = mongoose.createConnection('mongodb+srv://kbibi:Mrgamer1017$@cluster0-pkbkj.mongodb.net/Cluster0?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true});
+
 // Passport Config
 require('./config/passport')(passport);
 
+//App Config
+app.use(bodyParser.urlencoded({ extended: true}))
+app.use(bodyParser.json())
+app.set("view engine", "ejs");
+app.use(methodOverride("_method"))
+app.locals.moment = require("moment");
 // EJS
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
@@ -58,7 +68,6 @@ app.use(function(req, res, next) {
   res.locals.error = req.flash('error');
   next();
 });
-
 // Routes
 app.use('/users', require('./routes/users.js'));
 
