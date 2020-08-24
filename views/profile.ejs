@@ -20,10 +20,6 @@
 	  <% } %>
 		  <p>In This Unit: <a href="/profile/<%= relative._id %>"><%= relative.username %> </a></p>
 	 <% }) %>
-	  <% if(user._id !== profile._id){ %>
-		<form action="/follow/<%= profile._id %>" method="POST">
-			  <button type="submit" class="btn btn-success btn-block">Follow</button>	  
-		</form>
 	 	<a href="/edit/profile" class="btn btn-primary btn-block">Edit Your Profile</a>
 		<a href="/home" class="btn btn-primary btn-block">Go To The Home Page</a>
 		<a href="/profiles" class="btn btn-secondary btn-block">Browse More Profiles</a>
