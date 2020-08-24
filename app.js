@@ -316,10 +316,6 @@ app.delete('/files/:id', (req, res) => {
   });
 });
 
-app.get("/profilephoto", (req, res) => {
-	res.render("profilephoto")
-})
-
 app.get("/photo", function(req, res){
 	res.render("photo")
 })
