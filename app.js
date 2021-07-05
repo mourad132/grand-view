@@ -90,7 +90,7 @@ app.post("/users/changePassword", ensureAuthenticated, (req, res) => {
 		if(err){
 			console.log(err)
 		} else {
-			User.findOneAndUpdate({
+			user.findOneAndUpdate({
 				password: req.body.password;
 			}, (err, pass) => {
 				if(err){
