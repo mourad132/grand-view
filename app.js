@@ -85,16 +85,6 @@ app.get("/home", ensureAuthenticated, function(req, res){
     })
 });
 
-app.post("/users/changePassword", ensureAuthenticated, (req, res) => {
-	User.findOneAndUpdate(req.user.id, { password: req.body.password }, (err, pass) => {
-		if(err){
-			res.send(err)
-		} else {
-			res.send(pass)
-		}
-	})
-})
-
 app.get('/new', ensureAuthenticated, function(req, res){
     res.render("new")
 })
