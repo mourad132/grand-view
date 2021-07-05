@@ -86,21 +86,20 @@ app.get("/home", ensureAuthenticated, function(req, res){
 });
 
 app.post("/users/changePassword", ensureAuthenticated, (req, res) => {
-	User.find({_id: req.body.id}, (err, user) => {
+	User.find({req.user.id}, (err, user) => {
 		if(err){
 			console.log(err)
 		} else {
-	            bcrypt.genSalt(10, (err, salt) => {
-		    bcrypt.hash(req.body.password, salt, (err, hash) => {
-		    if (err) {
-		    	console.log(err)
-		    } else {
 			User.findOneAndUpdate({
-				password: hash; 
-			}, (err, password) => {
-				console.log(password)
+				password: req.body.password;
+			}, (err, pass) => {
+				if(err){
+					console.log(err)
+				} else {
+					res.send(pass);
+				}
 			})
-		}}
+		}
 	})
 })
 
